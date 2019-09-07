@@ -150,13 +150,15 @@
 <div class="container">
     <div class="video-player-container">
         <div class="video-container">
-            <video id="my-video" class="video-js" controls preload="auto" width="1280" height="578"
+            <!-- <video id="my-video" class="video-js" controls preload="auto" width="1280" height="578"
                    poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-                <source src="https://steemia.net/ipfs/<%= video %>" type='video/mp4'>
+                <source src="https://steemia.net/ipfs/<%= url %>" type='video/mp4'>
                 <p class="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video
                 </p>
-            </video>
+            </video> -->
+            
+            <img src=<%= url %> width=500 height=500>
 
         </div>
 
@@ -166,7 +168,7 @@
 
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
-<script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+<!-- <script src="http://vjs.zencdn.net/6.6.3/video.js"></script> -->
 
 </body>
 

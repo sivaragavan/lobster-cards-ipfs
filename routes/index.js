@@ -4,15 +4,7 @@ var router = express.Router();
 let video;
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-
-/* GET home page. */
-router.post('/', function(req, res, next) {
-    video = req.body.search;
-    console.log(video);
-    res.render('video', { title: 'Express', video: video });
+  res.render('message', { message: 'Welcome! Please scan a lobster card to get started!' });
 });
 
 module.exports = router;

@@ -1,0 +1,30 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Search</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body class="align">
+
+  <div class="grid">
+    <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
+      <div class="form__field">
+        <input type="file" name="image" class="form__input" /><br /><br />
+        <input type="submit" value="Upload" class="button">
+    </form>
+  </div>
+
+  </form>
+
+  </div>
+
+</body>
+
+</html>
