@@ -65,7 +65,7 @@ router.get('/:key', function (req, res, next) {
         }
       }
       const hash = dataDict.hash;
-      const name = dataDict.name ? dataDict.name else '';
+      const name = dataDict.name ? dataDict.name : '';
       var fileUrl = IPFS_URL + hash;
       console.log("private_key:", private_key, "numLikes:", numLikes, "numDislikes:", numDislikes, "name:", name);
       res.render('view', { private_key: private_key, url: fileUrl, name: name, numLikes: numLikes, numDislikes: numDislikes });
