@@ -21,7 +21,9 @@
         <img src=<%= url %>
 
       </div>
-      <h2 id="meme-caption"> <%= name %> </h2>
+      <% if (name) { %>
+          <h2 id="meme-caption"> <%= name %> </h2>
+      <% } %>
     </div>
   </div>
 
