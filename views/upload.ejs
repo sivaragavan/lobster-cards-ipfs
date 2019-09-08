@@ -10,25 +10,31 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 
-  <body>
-    <div class="text-center row__main-logo">
-      <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
-    </div>
-    <div class="row__bordered w-80">
-      <p>Welcome to Lobster.cards, a Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-      <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
-        <!-- <div class="form__field">
-          <input type="file" name="image" class="form__input" />
-        </div> -->
+<body>
+  <div class="text-center row__main-logo">
+    <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
 
-        <div class="d-block text-center">
-          <input type="file" name="image" class="form__input button__primary" />
-        </div>
-
-        <div class="d-block text-center">
-          <input type="submit" value="Upload Video" class="button__primary">
-        </div>
-      </form>
     </div>
-  </body>
+  <div class="row__bordered w-80">
+    <p>Welcome to Lobster.cards, Upload a cool or funny meme.</p>
+    <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
+
+      <div class="d-block text-center">
+        <input type="file" name="image" class="form__input button__primary" />
+      </div>
+
+      <div class="d-block text-center row__input--caption">
+        <label for="name">Add Caption (optional)</label>
+        <input type="text" id="name" name="name" class="text-center">
+      </div>
+
+
+      <div class="d-block text-center">
+        <input type="submit" value="Upload Video" class="button__primary">
+
+        </div>
+    </form>
+  </div>
+</body>
+
 </html>
