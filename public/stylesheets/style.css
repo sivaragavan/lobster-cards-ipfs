@@ -1,6 +1,4 @@
-
 /* helpers/align.css */
-
 .align {
   align-items: center;
   display: flex;
@@ -9,7 +7,6 @@
 }
 
 /* helpers/grid.css */
-
 :root {
   --gridMaxWidth: 20rem;
   --gridWidth: 90%;
@@ -23,10 +20,8 @@
 }
 
 /* layout/base.css */
-
 :root {
   --htmlFontSize: 100%;
-
   --bodyBackgroundColor: #61646d;
   --bodyColor: #000;
   --bodyFontFamily: 'Open Sans';
@@ -62,7 +57,6 @@ body {
 }
 
 /* modules/form.css */
-
 ::placeholder {
   color: #42454e;
 }
@@ -100,20 +94,16 @@ input[type="submit"] {
 }
 
 /* modules/search.css */
-
 :root {
-  --searchBackgroundColor: #42454e;
+  /* --searchBackgroundColor: #42454e; */
   --searchBorderRadius: .125rem;
   --searchFontSize: .75rem;
   --searchPadding: .5rem;
-
   --searchInputBorderRadius: .125rem;
-
   --searchInputSearchBackgroundColor: #fff;
   --searchInputSearchColor: #42454e;
   --searchInputSearchPaddingHorizontal: .5rem;
   --searchInputSearchPaddingVertical: .375rem;
-
   --searchInputButtonBackgroundColor: #1bba9a;
   --searchInputButtonColor: #fff;
   --searchInputButtonFontWeight: bold;
@@ -141,8 +131,8 @@ input[type="submit"] {
 }
 
 .search input[type="submit"] {
-  background-color: var(--searchInputButtonBackgroundColor);
-  color: var(--searchInputButtonColor);
+  /* background-color: var(--searchInputButtonBackgroundColor); */
+  /* color: var(--searchInputButtonColor); */
   font-weight: var(--searchInputButtonFontWeight);
   margin-left: .5rem;
   padding: var(--searchInputButtonPaddingVertical) var(--searchInputButtonPaddingHorizontal);
@@ -151,4 +141,150 @@ input[type="submit"] {
 .search input[type="submit"]:focus,
 .search input[type="submit"]:hover {
   background-color: var(--searchInputButtonHoverBackgroundColor);
+}
+
+:root {
+  /* --searchBackgroundColor: #42454e; */
+  --searchBorderRadius: .125rem;
+  --searchFontSize: .75rem;
+  --searchPadding: .5rem;
+  --searchInputBorderRadius: .125rem;
+  --searchInputSearchBackgroundColor: #fff;
+  --searchInputSearchColor: #42454e;
+  --searchInputSearchPaddingHorizontal: .5rem;
+  --searchInputSearchPaddingVertical: .375rem;
+  --searchInputButtonBackgroundColor: #1bba9a;
+  --searchInputButtonColor: #fff;
+  --searchInputButtonFontWeight: bold;
+  --searchInputButtonPaddingHorizontal: .625rem;
+  --searchInputButtonPaddingVertical: .375rem;
+  --searchInputButtonHoverBackgroundColor: #189e83;
+  --baseFontSize: 1.25em;
+  --primaryButtonBackgroundColor: #fff;
+  --primaryBlue: #4C88A2;
+}
+
+body {
+  background: #fff;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.w-80 {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+.d-block {
+  display: block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font__small {
+  font-size: 10px;
+}
+
+.row__main-logo {
+  margin: 40px 0;
+}
+
+.row__bordered {
+  border: 1px solid #979797;
+  border-radius: 4px;
+  padding: 40px 60px;
+}
+
+.row__voting {
+  margin-right: 40px;
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  flex-basis: auto;
+  background: blue;
+}
+
+.vote__left,
+.vote__right {
+  /* display: flex; */
+
+  flex-basis: 300;
+}
+
+.button__primary {
+  background-color: var(--primaryButtonBackgroundColor);
+  border: 2px solid var(--primaryBlue);
+  color: var(--primaryBlue);
+  font-size: var(--baseFontSize);
+  display: inline-block;
+  margin: 30px;
+  padding: 15px 5px;
+  width: 230px;
+}
+
+.card__front {
+  margin-top: 60px;
+  opacity: 0;
+}
+
+.card__anim {
+  -webkit-anim: fadeInUp 1s 1s;
+  animation: fadeInUp 1s 1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0)
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0)
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+  }
+}
+
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp
+}
+
+@media only screen and (max-width: 650px) {
+  .logo__main {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .card__front img {
+    width: 85%;
+    margin: 0 auto;
+  }
 }

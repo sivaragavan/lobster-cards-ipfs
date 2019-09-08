@@ -7,24 +7,28 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 
-<body class="align">
+  <body>
+    <div class="text-center row__main-logo">
+      <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
+    </div>
+    <div class="row__bordered w-80">
+      <p>Welcome to Lobster.cards, a Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+      <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
+        <!-- <div class="form__field">
+          <input type="file" name="image" class="form__input" />
+        </div> -->
 
-  <div class="grid">
-    <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
-      <div class="form__field">
-        <input type="file" name="image" class="form__input" /><br /><br />
-        <input type="submit" value="Upload" class="button">
-    </form>
-  </div>
+        <div class="d-block text-center">
+          <input type="file" name="image" class="form__input button__primary" />
+        </div>
 
-  </form>
-
-  </div>
-
-</body>
-
+        <div class="d-block text-center">
+          <input type="submit" value="Upload Video" class="button__primary">
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
