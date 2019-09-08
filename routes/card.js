@@ -15,7 +15,6 @@ const web3 = new Web3(provider)
 const axios = require('axios');
 
 const IPFS_URL = "https://ipfs.infura.io/ipfs/";
-const CREATE = "0x01"
 const LIKE = "0x02"
 const DISLIKE = "0x03"
 
@@ -39,7 +38,7 @@ router.get('/:key', function (req, res, next) {
      for (var i = 0; i < dataLength; i++) {
        const tx = txs[i];
        console.log("tx.input:", tx.input);
-       if (tx.input !== null && tx.input !== undefined) {
+       if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
          hasImage = true;
          break;
        }
@@ -57,7 +56,7 @@ router.get('/:key', function (req, res, next) {
               numLikes++;
             } else if (tx.input == DISLIKE) {
               numDislikes++;
-            } else if (tx.input !== null && tx.input !== undefined) {
+            } else if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
               if (hash !== null) {
                 console.log("MULTIPLE NON NULL HASHES SEEN IN DATA");
               }
