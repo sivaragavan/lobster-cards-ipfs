@@ -30,12 +30,44 @@ router.get('/:key', function (req, res, next) {
     const url = "http://api-ropsten.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken&address=" + account.address;
     axios.get(url)
       .then(function (response) {
-        if(response.data.result.length == 0) {
+
+
+     // loop through past txs and check if image is created
+     const txs = response.data.result;
+     const dataLength = txs.length;
+     var hasImage = false;
+     for (var i = 0; i < dataLength; i++) {
+       const tx = txs[i];
+       console.log("tx.input:", tx.input);
+       if (tx.input !== null && tx.input !== undefined) {
+         hasImage = true;
+         break;
+       }
+     }
+        if (hasImage === false) {
           res.render('upload', { private_key: private_key });
         } else {
-          var tx1 = response.data.result[0];
-          var fileUrl = IPFS_URL + 'QmRHDjZC6ZgkDwdKP2b2N984ckhhs2yKehLSz7NmeZv7Rn'
-          res.render('view', { url: fileUrl });
+          var numLikes = 0;
+          var numDislikes = 0;
+          var hash = null;
+          for (var i = 0; i < dataLength; i++) {
+            const tx = txs[i];
+            console.log("tx", tx);
+            if (tx.input === LIKE) {
+              numLikes++;
+            } else if (tx.input == DISLIKE) {
+              numDislikes++;
+            } else if (tx.input !== null && tx.input !== undefined) {
+              if (hash !== null) {
+                console.log("MULTIPLE NON NULL HASHES SEEN IN DATA");
+              }
+              console.log("Hash:", hash);
+              hash = web3.utils.hexToAscii(tx.input);
+            }
+          }
+          var fileUrl = IPFS_URL + hash;
+          console.log("numLikes:", numLikes, "numDislikes:", numDislikes);
+          res.render('view', { url: fileUrl, numLikes: numLikes, numDislikes: numDislikes });
         }
       })
       .catch(function (error) {
@@ -49,10 +81,8 @@ router.get('/:key', function (req, res, next) {
 
 /* GET home page. */
 router.post('/:key', upload.single('image'), function (req, res, next) {
-  
   const private_key = req.params.key;
   var account = web3.eth.accounts.privateKeyToAccount(private_key);
-  
   const buffer = req.file.buffer;
   ipfs.files.add(buffer, function (err, file) {
     if (err) {
@@ -60,12 +90,15 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
     } else {
       var hash = file[0].hash;
       console.log(hash)
+      const strHexHash = web3.utils.asciiToHex(hash);
+      const backToAscii = web3.utils.hexToAscii(strHexHash);
 
+      console.log("hash:", hash, "strHexHash:", strHexHash, "backToAscii:", backToAscii);
       const rawTransaction = {
         "from": account.address,
         "to": account.address,
         "gas": 50000,
-        "data": CREATE,
+        "data": strHexHash,
       };
 
       account.signTransaction(rawTransaction)
