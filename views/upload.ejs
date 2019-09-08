@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Search</title>
+  <title>Upload</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -15,11 +15,11 @@
     <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
 
     </div>
-  <div class="row__bordered w-80">
-    <p>Welcome to Lobster.cards, Upload a cool or funny meme.</p>
+  <div class="row__bordered row__upload">
+    <p>Welcome to Lobster.cards, Upload a cool photo or funny meme.</p>
     <form method="post" action="/card/<%= private_key %>" enctype="multipart/form-data" class="search">
 
-      <div class="d-block text-center">
+      <div class="d-block text-center row__upload--file">
         <input type="file" name="image" class="form__input button__primary" />
       </div>
 
@@ -28,10 +28,9 @@
         <input type="text" id="name" name="name" class="text-center">
       </div>
 
-      <div class="d-block text-center">
-        <input type="submit" value="Upload Video" class="button__primary">
-
-        </div>
+      <div class="d-block text-center row__upload--file">
+        <input type="submit" value="Upload File" class="button__primary button__upload">
+      </div>
     </form>
   </div>
 </body>

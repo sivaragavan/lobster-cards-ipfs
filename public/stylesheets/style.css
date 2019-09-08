@@ -227,7 +227,7 @@ body {
   border: 1px solid #cacaca;
   display: block;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 10px 0;
   width: 80%;
 }
@@ -285,7 +285,12 @@ body {
   display: inline-block;
   margin: 30px;
   padding: 15px 5px;
-  width: 230px;
+  /* width: 230px; */
+}
+
+.button__upload {
+  width: 90%;
+  display: block;
 }
 
 .card__front {
@@ -392,6 +397,15 @@ body {
   .card__front img {
     width: 85%;
     margin: 0 auto;
+  }
+
+  .row__upload {
+    padding: 10px;
+  }
+
+  .row__upload--file input {
+    font-size: 10px;
+    margin: 10px auto;
   }
 
   .row__meme-container {
