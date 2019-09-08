@@ -196,6 +196,10 @@ body {
   font-size: 10px;
 }
 
+.row__vote-content p {
+  margin-bottom: 0;
+}
+
 .row__main-logo {
   margin: 40px 0;
 }
@@ -210,7 +214,6 @@ body {
   display: block;
   margin: 0 auto;
   height: 100px;
-  padding-top: 30px;
   margin-bottom: 60px;
   text-align: center;
 }
@@ -219,6 +222,10 @@ body {
   width: 100%;
 }
 
+.row__meme-container {
+  margin: 0 auto;
+  width: 85%;
+}
 
 .row__input--caption input {
   border: 1px solid #cacaca;
@@ -241,12 +248,12 @@ body {
   cursor: pointer;
   height: 60px;
   width: 60px;
-  transition: 0.5s;
+  transition: 0.35s;
 }
 
 .vote__left img:hover,
 .vote__right img:hover {
--webkit-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
 
@@ -288,6 +295,10 @@ body {
   animation: fadeInUp 1s 1s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
+}
+
+#meme-caption:empty {
+  display: none;
 }
 
 @-webkit-keyframes fadeInUp {
@@ -332,5 +343,9 @@ body {
   .card__front img {
     width: 85%;
     margin: 0 auto;
+  }
+
+  .row__meme-container {
+    width: 95%;
   }
 }

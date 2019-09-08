@@ -10,15 +10,22 @@
 <body>
   <div class="text-center row__main-logo">
     <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
+
   </div>
 
   <div class="container">
-    <div class="row__bordered w-80">
+    <div class="row__bordered row__meme-container">
       <div class="d-block text-center row__meme-content">
         <img src=<%= url %>
       </div>
+      <h2 id="meme-caption"> <%= name %> </h2>
     </div>
   </div>
+  
+  <div class="row row__vote-content text-center mt-30">
+      <p>Was this cool? Vote!</p>
+  </div>
+
   <div class="row__voting">
     <div class="vote__left">
       <span class="vote__left--number"><%= numLikes %></span>
