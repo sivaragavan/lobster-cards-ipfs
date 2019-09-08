@@ -68,7 +68,7 @@ router.get('/:key', function (req, res, next) {
       const name = dataDict.name;
       var fileUrl = IPFS_URL + hash;
       console.log("numLikes:", numLikes, "numDislikes:", numDislikes, "name:", name);
-      res.render('view', { url: fileUrl, name: name, numLikes: numLikes, numDislikes: numDislikes });
+      res.render('view', { private_key: private_key, url: fileUrl, name: name, numLikes: numLikes, numDislikes: numDislikes });
     }
   }).catch(function (error) {
        console.log(error);
@@ -114,40 +114,45 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
         .catch(err => console.error(err));
 
       var fileUrl = IPFS_URL + hash
-      res.render('view', { url: fileUrl });
+      res.render('view', { private_key: private_key, url: fileUrl });
     }
   });
 });
 
-router.post('/like/:isLike', function (req, res, next) {
-  const isLike = req.params.isLike;
-  if (req.params.isLike) { // req.params.isLike === true ?
-      const rawTransaction = {
-        "from": account.address,
-        "to": account.address,
-        "gas": 50000,
-        "data": LIKE,
-      };
+router.post('/like/:key', function (req, res, next) {
+  const private_key = req.params.key;
+  var account = web3.eth.accounts.privateKeyToAccount(private_key);
+  const rawTransaction = {
+    "from": account.address,
+    "to": account.address,
+    "gas": 50000,
+    "data": LIKE,
+  };
 
-      account.signTransaction(rawTransaction)
-        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
-        .then(receipt => console.log("Transaction receipt: ", receipt))
-        .catch(err => console.error(err));
+  account.signTransaction(rawTransaction)
+    .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+    .then(receipt => console.log("Transaction receipt: ", receipt))
+    .catch(err => console.error(err));
 
-  } else {
-      const rawTransaction = {
-        "from": account.address,
-        "to": account.address,
-        "gas": 50000,
-        "data": DISLIKE,
-      };
+  res.render('message', { message: "Thank you for voting" });
+});
 
-      account.signTransaction(rawTransaction)
-        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
-        .then(receipt => console.log("Transaction receipt: ", receipt))
-        .catch(err => console.error(err));
+router.post('/dislike/:key', function (req, res, next) {
+  const private_key = req.params.key;
+  var account = web3.eth.accounts.privateKeyToAccount(private_key);
+  const rawTransaction = {
+    "from": account.address,
+    "to": account.address,
+    "gas": 50000,
+    "data": DISLIKE,
+  };
 
-  }
+  account.signTransaction(rawTransaction)
+    .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+    .then(receipt => console.log("Transaction receipt: ", receipt))
+    .catch(err => console.error(err));
+
+  res.render('message', { message: "Thank you for voting" });
 });
 
 module.exports = router;
