@@ -31,18 +31,18 @@ router.get('/:key', function (req, res, next) {
       .then(function (response) {
 
 
-     // loop through past txs and check if image is created
-     const txs = response.data.result;
-     const dataLength = txs.length;
-     var hasImage = false;
-     for (var i = 0; i < dataLength; i++) {
-       const tx = txs[i];
-       console.log("tx.input:", tx.input);
-       if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
-         hasImage = true;
-         break;
-       }
-     }
+        // loop through past txs and check if image is created
+        const txs = response.data.result;
+        const dataLength = txs.length;
+        var hasImage = false;
+        for (var i = 0; i < dataLength; i++) {
+          const tx = txs[i];
+          console.log("tx.input:", tx.input);
+          if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
+            hasImage = true;
+            break;
+          }
+        }
         if (hasImage === false) {
           res.render('upload', { private_key: private_key });
         } else {
@@ -66,7 +66,7 @@ router.get('/:key', function (req, res, next) {
           }
           var fileUrl = IPFS_URL + hash;
           console.log("numLikes:", numLikes, "numDislikes:", numDislikes);
-          res.render('view', { url: fileUrl, numLikes: numLikes, numDislikes: numDislikes });
+          res.render('view', { private_key: private_key, url: fileUrl, numLikes: numLikes, numDislikes: numDislikes });
         }
       })
       .catch(function (error) {
@@ -106,40 +106,45 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
         .catch(err => console.error(err));
 
       var fileUrl = IPFS_URL + hash
-      res.render('view', { url: fileUrl });
+      res.render('view', { private_key: private_key, url: fileUrl });
     }
   });
 });
 
-router.post('/like/:isLike', function (req, res, next) {
-  const isLike = req.params.isLike;
-  if (req.params.isLike) { // req.params.isLike === true ?
-      const rawTransaction = {
-        "from": account.address,
-        "to": account.address,
-        "gas": 50000,
-        "data": LIKE,
-      };
+router.post('/like/:key', function (req, res, next) {
+  const private_key = req.params.key;
+  var account = web3.eth.accounts.privateKeyToAccount(private_key);
+  const rawTransaction = {
+    "from": account.address,
+    "to": account.address,
+    "gas": 50000,
+    "data": LIKE,
+  };
 
-      account.signTransaction(rawTransaction)
-        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
-        .then(receipt => console.log("Transaction receipt: ", receipt))
-        .catch(err => console.error(err));
+  account.signTransaction(rawTransaction)
+    .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+    .then(receipt => console.log("Transaction receipt: ", receipt))
+    .catch(err => console.error(err));
 
-  } else {
-      const rawTransaction = {
-        "from": account.address,
-        "to": account.address,
-        "gas": 50000,
-        "data": DISLIKE,
-      };
+  res.render('message', { message: "Thank you for voting" });
+});
 
-      account.signTransaction(rawTransaction)
-        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
-        .then(receipt => console.log("Transaction receipt: ", receipt))
-        .catch(err => console.error(err));
+router.post('/dislike/:key', function (req, res, next) {
+  const private_key = req.params.key;
+  var account = web3.eth.accounts.privateKeyToAccount(private_key);
+  const rawTransaction = {
+    "from": account.address,
+    "to": account.address,
+    "gas": 50000,
+    "data": DISLIKE,
+  };
 
-  }
+  account.signTransaction(rawTransaction)
+    .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+    .then(receipt => console.log("Transaction receipt: ", receipt))
+    .catch(err => console.error(err));
+
+  res.render('message', { message: "Thank you for voting" });
 });
 
 module.exports = router;

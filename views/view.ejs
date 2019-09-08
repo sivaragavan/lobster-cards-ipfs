@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>IPFS Video Stream</title>
+  <title>Lobster Cards</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -19,15 +19,20 @@
       </div>
     </div>
   </div>
-
   <div class="row__voting">
     <div class="vote__left">
-      <span class="vote__left--number"></span>
-      <img class="vote__down--img" src="../imgs/thumbs-down.svg" alt="thumbs-down">
+      <span class="vote__left--number"><%= numLikes %></span>
+      <form method="post" action="/card/dislike/<%= private_key %>" enctype="multipart/form-data" class="search">
+        <input type="submit" value="Thumbs up" class="button__primary">
+        <img class="vote__down--img" src="../imgs/thumbs-down.svg" alt="thumbs-down">
+      </form>
     </div>
     <div class="vote__right">
-      <img class="vote__up--img" src="../imgs/thumbs-up.svg" alt="thumbs-up">
-      <span class="vote__right--number"></span>
+      <form method="post" action="/card/dislike/<%= private_key %>" enctype="multipart/form-data" class="search">
+        <input type="submit" value="Thumbs down" class="button__primary">
+        <img class="vote__up--img" src="../imgs/thumbs-up.svg" alt="thumbs-up">
+      </form>
+      <span class="vote__right--number"><%= numDislikes %></span>
     </div>
   </div>
 
