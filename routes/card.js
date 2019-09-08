@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('lodash');
 
 const ipfsAPI = require('ipfs-api');
 
@@ -29,14 +30,14 @@ router.get('/:key', function (req, res, next) {
     const url = "http://api-ropsten.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken&address=" + account.address;
     axios.get(url).then(function (response) {
 
-
      // loop through past txs and check if image is created
-    const txs = response.data.result;
+    const duplicateTxs = response.data.result;
+    const txs = _.uniqBy(duplicateTxs, 'timeStamp');
+
     const dataLength = txs.length;
     var hasImage = false;
     for (var i = 0; i < dataLength; i++) {
       const tx = txs[i];
-      console.log("tx.input:", tx.input);
       if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
         hasImage = true;
         break;
@@ -51,7 +52,6 @@ router.get('/:key', function (req, res, next) {
       var dataDict = null;
       for (var i = 0; i < dataLength; i++) {
         const tx = txs[i];
-        console.log("tx", tx);
         if (tx.input === LIKE) {
           numLikes++;
         } else if (tx.input == DISLIKE) {
