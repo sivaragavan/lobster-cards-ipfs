@@ -119,23 +119,19 @@ input[type="submit"] {
   padding: var(--searchPadding);
 }
 
-.search input[type="search"],
-.search input[type="submit"] {
-  border-radius: var(--searchInputBorderRadius);
-}
 
 .search input[type="search"] {
-  background-color: var(--searchInputSearchBackgroundColor);
+  /* background-color: var(--searchInputSearchBackgroundColor);
   color: var(--searchInputSearchColor);
-  padding: var(--searchInputSearchPaddingVertical) var(--searchInputSearchPaddingHorizontal);
+  padding: var(--searchInputSearchPaddingVertical) var(--searchInputSearchPaddingHorizontal); */
 }
 
 .search input[type="submit"] {
   /* background-color: var(--searchInputButtonBackgroundColor); */
   /* color: var(--searchInputButtonColor); */
-  font-weight: var(--searchInputButtonFontWeight);
+  /* font-weight: var(--searchInputButtonFontWeight);
   margin-left: .5rem;
-  padding: var(--searchInputButtonPaddingVertical) var(--searchInputButtonPaddingHorizontal);
+  padding: var(--searchInputButtonPaddingVertical) var(--searchInputButtonPaddingHorizontal); */
 }
 
 .search input[type="submit"]:focus,
@@ -242,26 +238,28 @@ body {
   margin: 10px 20px;
 }
 
-.vote__left img,
-.vote__right img {
-  border-radius: 120px;
-  cursor: pointer;
-  height: 60px;
-  width: 60px;
+.vote__left .search,
+.vote__right .search {
+  display: inline-block;
+}
+
+.vote__down--img,
+.vote__up--img {
+  width: 100px;
   transition: 0.35s;
 }
 
-.vote__left img:hover,
-.vote__right img:hover {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+.vote__left .vote__down--img:hover,
+.vote__right .vote__up--img:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .vote__left--number,
 .vote__right--number {
   font-size: 40px;
   position: relative;
-  top: -15px;
+  top: -35px;
 }
 
 .vote__left--number {
@@ -337,6 +335,27 @@ body {
 @media only screen and (max-width: 650px) {
   .logo__main {
     width: 70%;
+    margin: 0 auto;
+  }
+
+  .vote__up--img,
+  .vote__down--img {
+    margin: 10px 0;
+    width: 60px;
+  }
+
+  .vote__left,
+  .vote__right {
+    margin: 0;
+  }
+
+  .vote__right--number,
+  .vote__left--number {
+    font-size: 25px;
+  }
+
+  .row__voting {
+    width: 100%;
     margin: 0 auto;
   }
 
