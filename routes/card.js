@@ -65,9 +65,9 @@ router.get('/:key', function (req, res, next) {
         }
       }
       const hash = dataDict.hash;
-      const name = dataDict.name;
+      const name = dataDict.name ? dataDict.name else '';
       var fileUrl = IPFS_URL + hash;
-      console.log("numLikes:", numLikes, "numDislikes:", numDislikes, "name:", name);
+      console.log("private_key:", private_key, "numLikes:", numLikes, "numDislikes:", numDislikes, "name:", name);
       res.render('view', { private_key: private_key, url: fileUrl, name: name, numLikes: numLikes, numDislikes: numDislikes });
     }
   }).catch(function (error) {
