@@ -11,35 +11,37 @@
   <div class="text-center row__main-logo">
     <img src="../imgs/lobster-card-logo.svg" class="logo__main" alt="Lobster.Cards logo">
 
+
+
   </div>
 
   <div class="container">
     <div class="row__bordered row__meme-container">
       <div class="d-block text-center row__meme-content">
         <img src=<%= url %>
+
       </div>
         <h2 id="meme-caption"> <%= name %> </h2>
     </div>
   </div>
-  
+
   <div class="row row__vote-content text-center mt-30">
-      <p>Was this cool? Vote!</p>
+    <p>Was this cool? Vote!</p>
   </div>
 
   <div class="row__voting">
     <div class="vote__left">
-      <span class="vote__left--number"><%= numLikes %></span>
+      <span class="vote__left--number"><%= numDislikes %></span>
       <form method="post" action="/card/dislike/<%= private_key %>" enctype="multipart/form-data" class="search">
-        <input type="submit" value="Thumbs up" class="button__primary">
-        <img class="vote__down--img" src="../imgs/thumbs-down.svg" alt="thumbs-down">
+        <input type="image" class="vote__down--img" src="../imgs/thumbs-down.svg" alt="thumbs-down">
       </form>
     </div>
+
     <div class="vote__right">
-      <form method="post" action="/card/dislike/<%= private_key %>" enctype="multipart/form-data" class="search">
-        <input type="submit" value="Thumbs down" class="button__primary">
-        <img class="vote__up--img" src="../imgs/thumbs-up.svg" alt="thumbs-up">
+      <form method="post" action="/card/like/<%= private_key %>" enctype="multipart/form-data" class="search">
+        <input type="image" class="vote__up--img" src="../imgs/thumbs-up.svg" alt="thumbs-up">
       </form>
-      <span class="vote__right--number"><%= numDislikes %></span>
+      <span class="vote__right--number"><%= numLikes %></span>
     </div>
   </div>
 
