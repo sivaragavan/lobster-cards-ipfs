@@ -114,7 +114,7 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
         .catch(err => console.error(err));
 
       var fileUrl = IPFS_URL + hash
-      res.render('view', { private_key: private_key, url: fileUrl });
+      res.render('view', { private_key: private_key, url: fileUrl, name: name, numLikes: 0, numDislikes: 0 });
     }
   });
 });
