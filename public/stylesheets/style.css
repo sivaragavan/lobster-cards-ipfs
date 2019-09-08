@@ -162,6 +162,7 @@ input[type="submit"] {
   --baseFontSize: 1.25em;
   --primaryButtonBackgroundColor: #fff;
   --primaryBlue: #4C88A2;
+  --primaryRed: #BB0A21;
 }
 
 body {
@@ -202,23 +203,58 @@ body {
 .row__bordered {
   border: 1px solid #979797;
   border-radius: 4px;
-  padding: 40px 60px;
+  padding: 30px 60px;
 }
 
 .row__voting {
-  margin-right: 40px;
-  height: 350px;
-  display: flex;
-  flex-direction: row;
-  flex-basis: auto;
-  background: blue;
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+  padding-top: 30px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.row__meme-content img {
+  width: 100%;
 }
 
 .vote__left,
 .vote__right {
-  /* display: flex; */
+  display: inline-block;
+  margin: 10px 20px;
+}
 
-  flex-basis: 300;
+.vote__left img,
+.vote__right img {
+  border-radius: 120px;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  transition: 0.5s;
+}
+
+.vote__left img:hover,
+.vote__right img:hover {
+-webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.vote__left--number,
+.vote__right--number {
+  font-size: 40px;
+  position: relative;
+  top: -15px;
+}
+
+.vote__left--number {
+  left: -10px;
+  color: var(--primaryRed);
+}
+
+.vote__right--number {
+  right: -10px;
+  color: var(--primaryBlue);
 }
 
 .button__primary {

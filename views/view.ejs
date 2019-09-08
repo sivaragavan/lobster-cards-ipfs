@@ -21,26 +21,20 @@
 
   <div class="container">
     <div class="row__bordered w-80">
-      <div class="d-block text-center">
+      <div class="d-block text-center row__meme-content">
         <img src=<%= url %>
       </div>
     </div>
   </div>
 
-  <div>
-    <div class="row__voting">
-      <div>
-        <div class="row__voting">
-          <div class="vote__left">
-            <span class="vote__left--number">-5</span>
-            <img class="vote__down--img" src="../imgs/thumbs-down.svg" alt="">
-          </div>
-          <div class="vote__right">
-            <span class="vote__left--number">+5</span>
-            <img class="vote__up--img" src="../imgs/thumbs-up.svg" alt="">
-          </div>
-        </div>
-      </div>
+  <div class="row__voting">
+    <div class="vote__left">
+      <span class="vote__left--number"></span>
+      <img class="vote__down--img" src="../imgs/thumbs-down.svg" alt="thumbs-down">
+    </div>
+    <div class="vote__right">
+      <img class="vote__up--img" src="../imgs/thumbs-up.svg" alt="thumbs-up">
+      <span class="vote__right--number"></span>
     </div>
   </div>
 
