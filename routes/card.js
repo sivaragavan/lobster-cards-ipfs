@@ -27,51 +27,52 @@ router.get('/:key', function (req, res, next) {
 
   if (recovered == account.address) {
     const url = "http://api-ropsten.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken&address=" + account.address;
-    axios.get(url)
-      .then(function (response) {
+    axios.get(url).then(function (response) {
 
 
      // loop through past txs and check if image is created
-     const txs = response.data.result;
-     const dataLength = txs.length;
-     var hasImage = false;
-     for (var i = 0; i < dataLength; i++) {
-       const tx = txs[i];
-       console.log("tx.input:", tx.input);
-       if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
-         hasImage = true;
-         break;
-       }
-     }
-        if (hasImage === false) {
-          res.render('upload', { private_key: private_key });
-        } else {
-          var numLikes = 0;
-          var numDislikes = 0;
-          var hash = null;
-          for (var i = 0; i < dataLength; i++) {
-            const tx = txs[i];
-            console.log("tx", tx);
-            if (tx.input === LIKE) {
-              numLikes++;
-            } else if (tx.input == DISLIKE) {
-              numDislikes++;
-            } else if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
-              if (hash !== null) {
-                console.log("MULTIPLE NON NULL HASHES SEEN IN DATA");
-              }
-              console.log("Hash:", hash);
-              hash = web3.utils.hexToAscii(tx.input);
-            }
+    const txs = response.data.result;
+    const dataLength = txs.length;
+    var hasImage = false;
+    for (var i = 0; i < dataLength; i++) {
+      const tx = txs[i];
+      console.log("tx.input:", tx.input);
+      if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
+        hasImage = true;
+        break;
+      }
+    }
+
+    if (hasImage === false) {
+      res.render('upload', { private_key: private_key });
+    } else {
+      var numLikes = 0;
+      var numDislikes = 0;
+      var dataDict = null;
+      for (var i = 0; i < dataLength; i++) {
+        const tx = txs[i];
+        console.log("tx", tx);
+        if (tx.input === LIKE) {
+          numLikes++;
+        } else if (tx.input == DISLIKE) {
+          numDislikes++;
+        } else if (tx.input !== null && tx.input !== undefined && tx.input != '0x') {
+          if (dataDict !== null) {
+            console.log("MULTIPLE NON NULL HASHES SEEN IN DATA");
           }
-          var fileUrl = IPFS_URL + hash;
-          console.log("numLikes:", numLikes, "numDislikes:", numDislikes);
-          res.render('view', { url: fileUrl, numLikes: numLikes, numDislikes: numDislikes });
+          console.log("dataDict:", dataDict);
+          dataDict = JSON.parse(web3.utils.hexToAscii(tx.input));
         }
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+      }
+      const hash = dataDict.hash;
+      const name = dataDict.name;
+      var fileUrl = IPFS_URL + hash;
+      console.log("numLikes:", numLikes, "numDislikes:", numDislikes, "name:", name);
+      res.render('view', { url: fileUrl, name: name, numLikes: numLikes, numDislikes: numDislikes });
+    }
+  }).catch(function (error) {
+       console.log(error);
+    })
   } else {
     res.render('message', { message: 'Invalid Signature' });
   }
@@ -80,6 +81,7 @@ router.get('/:key', function (req, res, next) {
 
 /* GET home page. */
 router.post('/:key', upload.single('image'), function (req, res, next) {
+  const name = req.body.name;
   const private_key = req.params.key;
   var account = web3.eth.accounts.privateKeyToAccount(private_key);
   const buffer = req.file.buffer;
@@ -89,7 +91,13 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
     } else {
       var hash = file[0].hash;
       console.log(hash)
-      const strHexHash = web3.utils.asciiToHex(hash);
+      dataDict = {
+        hash: hash,
+        name: name,
+      };
+
+      dataDictStr = JSON.stringify(dataDict);
+      const strHexHash = web3.utils.asciiToHex(dataDictStr);
       const backToAscii = web3.utils.hexToAscii(strHexHash);
 
       console.log("hash:", hash, "strHexHash:", strHexHash, "backToAscii:", backToAscii);
