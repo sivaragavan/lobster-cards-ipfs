@@ -15,6 +15,9 @@ const web3 = new Web3(provider)
 const axios = require('axios');
 
 const IPFS_URL = "https://ipfs.infura.io/ipfs/";
+const CREATE = "0x01"
+const LIKE = "0x02"
+const DISLIKE = "0x03"
 
 router.get('/:key', function (req, res, next) {
   const private_key = req.params.key;
@@ -24,9 +27,9 @@ router.get('/:key', function (req, res, next) {
   var recovered = web3.eth.accounts.recover(signature);
 
   if (recovered == account.address) {
-    axios.get('http://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken&address=' + account.address)
+    const url = "http://api-ropsten.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken&address=" + account.address;
+    axios.get(url)
       .then(function (response) {
-        console.log(response.data);
         if(response.data.result.length == 0) {
           res.render('upload', { private_key: private_key });
         } else {
@@ -48,7 +51,7 @@ router.get('/:key', function (req, res, next) {
 router.post('/:key', upload.single('image'), function (req, res, next) {
   
   const private_key = req.params.key;
-  var account = web3.eth.accounts.privateKeyToAccount(private_key);    
+  var account = web3.eth.accounts.privateKeyToAccount(private_key);
   
   const buffer = req.file.buffer;
   ipfs.files.add(buffer, function (err, file) {
@@ -57,13 +60,14 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
     } else {
       var hash = file[0].hash;
       console.log(hash)
-      
+
       const rawTransaction = {
         "from": account.address,
         "to": account.address,
-        "gas": 50000
+        "gas": 50000,
+        "data": CREATE,
       };
-      
+
       account.signTransaction(rawTransaction)
         .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
         .then(receipt => console.log("Transaction receipt: ", receipt))
@@ -73,6 +77,37 @@ router.post('/:key', upload.single('image'), function (req, res, next) {
       res.render('view', { url: fileUrl });
     }
   });
+});
+
+router.post('/like/:isLike', function (req, res, next) {
+  const isLike = req.params.isLike;
+  if (req.params.isLike) { // req.params.isLike === true ?
+      const rawTransaction = {
+        "from": account.address,
+        "to": account.address,
+        "gas": 50000,
+        "data": LIKE,
+      };
+
+      account.signTransaction(rawTransaction)
+        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+        .then(receipt => console.log("Transaction receipt: ", receipt))
+        .catch(err => console.error(err));
+
+  } else {
+      const rawTransaction = {
+        "from": account.address,
+        "to": account.address,
+        "gas": 50000,
+        "data": DISLIKE,
+      };
+
+      account.signTransaction(rawTransaction)
+        .then(signedTx => web3.eth.sendSignedTransaction(signedTx.rawTransaction))
+        .then(receipt => console.log("Transaction receipt: ", receipt))
+        .catch(err => console.error(err));
+
+  }
 });
 
 module.exports = router;
