@@ -134,7 +134,7 @@ router.post('/like/:key', function (req, res, next) {
     .then(receipt => console.log("Transaction receipt: ", receipt))
     .catch(err => console.error(err));
 
-  res.render('message', { message: "Thank you for voting" });
+  res.render('message', { message: "Thank you for voting! If you enjoyed this, please pass this card onto a friend, or, simply leave it somewhere in the public." });
 });
 
 router.post('/dislike/:key', function (req, res, next) {
